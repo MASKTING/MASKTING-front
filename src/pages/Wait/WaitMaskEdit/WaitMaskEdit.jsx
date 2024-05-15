@@ -79,7 +79,7 @@ const WaitMaskEdit = () => {
 							>
 								<S.MaskItem
 									alt="마스크 이미지"
-									src={require(`../../../assets/${mask}`).default}
+									src={require(`../../../assets/${mask}`)}
 									style={{ width: '100%', height: '100%' }}
 								/>
 							</Rnd>
@@ -98,7 +98,7 @@ const WaitMaskEdit = () => {
 								<S.MaskItemWrapper key={Item.id}>
 									<S.MaskItem
 										value={Item.name}
-										src={require(`../../../assets/${Item.name}`).default}
+										src={require(`../../../assets/${Item.name}`)}
 										onClick={() => setMask(Item.name)}
 									/>
 								</S.MaskItemWrapper>

@@ -16,7 +16,7 @@ export const CarouselWrapper = styled.div`
 	animation: ${biggerEffect} 0.2s;
 `;
 
-export const CarouselItem = styled.div`
+export const CarouselItem = styled.img`
 	position: relative;
 	float: left;
 	flex-grow: 2;

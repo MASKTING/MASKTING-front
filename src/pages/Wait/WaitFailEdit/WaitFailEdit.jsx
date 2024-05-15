@@ -12,6 +12,8 @@ import { imageState, imageUrlState } from '../../../recoil';
 import Modal from '../../../components/Modal/Modal';
 import SideBar from '../../../components/SideBar/SideBar';
 import { postResignup } from '../../../api/postResignup';
+import api from '../../../api/api';
+import { useQuery } from 'react-query';
 
 const dataURLtoFile = (dataurl, fileName) => {
 	var arr = dataurl.split(','),
@@ -37,20 +39,23 @@ const WaitFailEdit = () => {
 
 	const { register, handleSubmit, formState, watch, setError, clearErrors, errors, setValue } =
 		useForm({ mode: 'all' });
-	const { resignupInfo } = '';
+	const { data: resignUpInfo } = useQuery('getResignupInfo', () => api('/api/user/re-signup'));
 	const imgRef = useRef();
 
 	useEffect(() => {
-		if (resignupInfo) {
-			for (const key in resignupInfo) setValue(key, resignupInfo[key]);
+		if (resignUpInfo?.data) {
+			for (const key in resignUpInfo.data) setValue(key, resignUpInfo.data[key]);
 			setImageFile({
-				originalImage: dataURLtoFile(resignupInfo.profile, resignupInfo.profilePath),
-				maskedImage: dataURLtoFile(resignupInfo.maskProfile, resignupInfo.maskProfilePath),
+				originalImage: dataURLtoFile(resignUpInfo.data.profile, resignUpInfo.dataprofilePath),
+				maskedImage: dataURLtoFile(
+					resignUpInfo.data.maskProfile,
+					resignUpInfo.data.maskProfilePath,
+				),
 			});
 
-			if (!imageUrl) setImageUrl(resignupInfo?.maskedProfilePath);
+			if (!imageUrl) setImageUrl(resignUpInfo.data?.maskedProfilePath);
 		}
-	}, [resignupInfo]);
+	}, [resignUpInfo?.data]);
 
 	// MODAL
 	const onCloseModal = () => {
@@ -126,7 +131,7 @@ const WaitFailEdit = () => {
 			<WrapperInner>
 				<S.TitleWrapper>
 					<S.Title>
-						{resignupInfo?.nickname}님
+						{resignUpInfo?.data.nickname}님
 						<br /> 다음 항목을 수정해주세요
 					</S.Title>
 				</S.TitleWrapper>

@@ -21,6 +21,10 @@ const HomeMainPage = () => {
 	const { data: userInfo } = useQuery('getProfile', () => api('/api/user'));
 	const { data: partnerInfo } = useQuery('getPartnerInfo', () => api('/api/partner'));
 
+	useEffect(() => {
+		localStorage.setItem('nickname', userInfo?.data.nickname);
+	}, [userInfo]);
+
 	// useEffect(() => {
 	// 	if (feedViewState) {
 	// 		setFeedViewState(false);

@@ -17,7 +17,7 @@ const WaitFail = () => {
 		<Wrapper>
 			<WrapperInner>
 				<S.Title>
-					{resignUpInfo?.nickname}님
+					{resignUpInfo?.data.nickname}님
 					<br />
 					다시 한번 확인해주세요
 				</S.Title>
